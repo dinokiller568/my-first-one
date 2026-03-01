@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unova Quest - Gen 5 Inspired</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header>
+        <h1>Unova Quest</h1>
+        <p class="subtitle">A Gen 5 inspired mini RPG in pure JavaScript</p>
+      </header>
+
+      <section class="layout">
+        <canvas id="world" width="640" height="400" aria-label="Game world"></canvas>
+
+        <aside class="panel" id="ui-panel">
+          <div class="block">
+            <h2>Objective</h2>
+            <p>Walk through tall grass (green tiles) and battle wild Pokémon.</p>
+          </div>
+
+          <div class="block" id="starter-block">
+            <h2>Choose Your Starter</h2>
+            <div id="starters" class="starter-list"></div>
+          </div>
+
+          <div class="block hidden" id="player-block">
+            <h2>Your Team</h2>
+            <div id="player-info"></div>
+          </div>
+
+          <div class="block hidden" id="battle-block">
+            <h2>Battle</h2>
+            <div id="battle-log" class="battle-log"></div>
+            <div id="move-buttons" class="move-buttons"></div>
+          </div>
+
+          <div class="hint">Controls: Arrow keys / WASD to move.</div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
