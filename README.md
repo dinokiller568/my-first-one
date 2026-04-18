@@ -42,3 +42,12 @@ export function onLoad(api) {
 
 - This is a **starter framework**, not a full custom game fork.
 - Compatibility depends on your Eaglercraft build and what browser APIs are available.
+
+## Design specification
+
+- `docs/EaglerFine-Design-Spec-v12.2.js` - single-file comprehensive specification (human-readable structure + machine-readable JavaScript object + built-in validation test).
+
+### Browser test page
+
+- Open `src/spec-viewer.html` to preview the spec object and run the built-in self-test in-browser.
+- Local URLs after starting a server: `http://localhost:8080/src/spec-viewer.html` or `http://localhost:8080/src/spec-viewer.htm`
