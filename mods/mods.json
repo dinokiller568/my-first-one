@@ -1,0 +1,10 @@
+{
+  "minecraftVersion": "1.12.2",
+  "mods": [
+    {
+      "name": "example-hud",
+      "entry": "../mods/example-hud.js",
+      "enabled": true
+    }
+  ]
+}

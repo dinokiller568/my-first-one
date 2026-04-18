@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eaglercraft 1.12.2 Mod Client</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --mc-panel: #2b2b2b;
+        --mc-panel-border: #555;
+        --mc-panel-highlight: #6b6b6b;
+        --mc-text: #ffffff;
+        --mc-yellow: #ffdd55;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--mc-text);
+        font-family: 'Courier New', monospace;
+        text-shadow: 1px 1px 0 #000;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+          repeating-linear-gradient(
+            45deg,
+            #3a3a3a 0,
+            #3a3a3a 8px,
+            #353535 8px,
+            #353535 16px
+          );
+      }
+
+      .hud {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-top: 2px solid var(--mc-panel-highlight);
+        border-left: 2px solid var(--mc-panel-highlight);
+        border-right: 2px solid #1a1a1a;
+        border-bottom: 2px solid #1a1a1a;
+        background: var(--mc-panel);
+        padding: 8px 12px;
+      }
+
+      .brand {
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .version {
+        color: var(--mc-yellow);
+      }
+
+      .status {
+        opacity: 0.95;
+        text-align: right;
+      }
+
+      iframe {
+        width: 100%;
+        height: calc(100vh - 54px);
+        border: 0;
+        display: block;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hud">
+      <div class="brand">Eaglercraft Java-Style Client <span class="version">1.12.2</span></div>
+      <div id="status" class="status">Loading 1.12.2 mods…</div>
+    </header>
+
+    <iframe id="eagler-frame" src="../assets/eaglercraft-1.12.2/index.html" title="Eaglercraft 1.12.2"></iframe>
+
+    <script type="module">
+      import './mod-loader.js';
+
+      const status = document.getElementById('status');
+      const REQUIRED_VERSION = '1.12.2';
+
+      function setStatus(text) {
+        status.textContent = text;
+      }
+
+      window.addEventListener('eagler:manifestLoaded', (e) => {
+        setStatus(`Manifest version: ${e.detail.minecraftVersion}`);
+      });
+
+      window.addEventListener('eagler:modLoaded', (e) => {
+        setStatus(`Loaded mod: ${e.detail.name}`);
+      });
+
+      window.addEventListener('eagler:modFailed', (e) => {
+        setStatus(`Failed mod: ${e.detail.name}`);
+      });
+
+      window.addEventListener('eagler:modsReady', (e) => {
+        const loaded = e.detail.loaded.length
+          ? e.detail.loaded.join(', ')
+          : 'none';
+        setStatus(`1.12.2 ready • Mods: ${loaded}`);
+      });
+
+      window.EaglerModLoader.loadManifest('../mods/mods.json', {
+        requiredVersion: REQUIRED_VERSION
+      }).catch((err) => {
+        setStatus(`Error: ${err.message}`);
+      });
+    </script>
+  </body>
+</html>
