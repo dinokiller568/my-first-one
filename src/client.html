@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eaglercraft Mod Client (Starter)</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        background: #121212;
+        color: #f0f0f0;
+      }
+      header {
+        padding: 12px 16px;
+        border-bottom: 1px solid #333;
+      }
+      .status {
+        font-size: 14px;
+        opacity: 0.85;
+      }
+      iframe {
+        width: 100%;
+        height: calc(100vh - 60px);
+        border: 0;
+        background: #1b1b1b;
+      }
+      code {
+        background: #1b1b1b;
+        border: 1px solid #2f2f2f;
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <strong>Eaglercraft Mod Client (Starter)</strong>
+      <div id="status" class="status">Loading mods…</div>
+    </header>
+
+    <!-- Point this src to your own Eaglercraft HTML build file -->
+    <iframe id="eagler-frame" src="../assets/eaglercraft/index.html"></iframe>
+
+    <script type="module">
+      import './mod-loader.js';
+
+      const status = document.getElementById('status');
+
+      function setStatus(text) {
+        status.textContent = text;
+      }
+
+      window.addEventListener('eagler:modLoaded', (e) => {
+        setStatus(`Loaded mod: ${e.detail.name}`);
+      });
+
+      window.addEventListener('eagler:modFailed', (e) => {
+        setStatus(`Failed mod: ${e.detail.name}`);
+      });
+
+      window.addEventListener('eagler:modsReady', (e) => {
+        const loaded = e.detail.loaded.length
+          ? e.detail.loaded.join(', ')
+          : 'none';
+        setStatus(`Mods ready. Loaded: ${loaded}`);
+      });
+
+      window.EaglerModLoader.loadManifest('../mods/mods.json').catch((err) => {
+        setStatus(`Error: ${err.message}`);
+      });
+    </script>
+  </body>
+</html>

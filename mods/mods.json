@@ -1,0 +1,9 @@
+{
+  "mods": [
+    {
+      "name": "example-hud",
+      "entry": "../mods/example-hud.js",
+      "enabled": true
+    }
+  ]
+}
